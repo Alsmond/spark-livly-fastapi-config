@@ -1,0 +1,38 @@
+curl -X GET http://ec2-34-236-36-186.compute-1.amazonaws.com:8998/sessions
+
+curl -X POST \
+  --data '{"kind": "pyspark"}' \
+  -H "Content-Type: application/json" \
+  http://ec2-34-236-36-186.compute-1.amazonaws.com/sessions
+
+
+curl -X POST -H "Content-Type: application/json" -d "{\"kind\": \"pyspark\"}" http://ec2-34-236-36-186.compute-1.amazonaws.com:8998/sessions
+
+
+curl -X GET http://ec2-34-236-36-186.compute-1.amazonaws.com:8998/sessions/0
+
+
+
+
+
+
+curl -X POST -H "Content-Type: application/json" -d "{\"code\": \"sc.range(1, 10).sum()\"}" http://ec2-34-236-36-186.compute-1.amazonaws.com:8998/sessions/0/statements
+
+
+curl http://ec2-34-236-36-186.compute-1.amazonaws.com:8998/sessions/0/statements/0
+
+
+
+curl -X POST -H "Content-Type: application/json" -d "{\"code\": \"even_count = sc.range(1, 1001).filter(lambda x: x % 2 == 0).count()\neven_count\"}" http://ec2-34-236-36-186.compute-1.amazonaws.com:8998/sessions/0/statements
+
+
+curl http://ec2-34-236-36-186.compute-1.amazonaws.com:8998/sessions/0/statements/{id}
+
+
+Fast api run code- uvicorn main:app --reload --host 0.0.0.0 --port 8000
+
+new terminal same file-curl -X POST http://localhost:8000/execute \
+-H "Content-Type: application/json" \
+-d '{"session_id": 0, "code": "1 + 2"}'
+
+for output-curl http://localhost:8000/result/0/6
